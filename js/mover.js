@@ -92,17 +92,16 @@ function draw(){
   oil.display();
 
   //
-  ty += 0.005;
+  ty += 0.003;
   tx += 0.001;
   k = noise(ty);
-  k = map(k, 0, 1, -0.09, 0.09);
+  k = map(k, 0, 1, 0, 0.09);
   j = noise(tx);
-  j = map(j, 0, 1, -0.09, 0.09);
+  j = map(j, 0, 1, -0.1, 0.1);
 
 
   for(i = 0; i < movers.length; i++){
     wind = createVector(j, k);
-    movers[i].applyForce(wind);
     gravity = createVector(0, 0.1 * movers[i].mass);
     friction = createVector(movers[i].velocity.x, movers[i].velocity.y);
     n = 1;
@@ -111,7 +110,8 @@ function draw(){
     friction.mult(-1);
     friction.mult(f * n);
     movers[i].applyForce(gravity);
-    movers[i].applyForce(friction);
+    movers[i].applyForce(wind);
+    movers[i].applyForce(friction) ;
     movers[i].update();
     movers[i].display();
     movers[i].checkEdges();
